@@ -1,0 +1,102 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: dummyGithub
+  description: An example of a Backstage dummy application
+  # Example for optional annotations
+  # annotations:
+  #   github.com/project-slug: backstage/backstage
+  #   backstage.io/techdocs-ref: dir:.
+  tags:
+    - Github
+    - dumdum
+    - hoholy
+spec:
+  lifecycle: production
+  type: apple
+  owner: zozo
+  system: dumsystem
+  domain: dumdomain
+  parent: zozo
+
+---
+
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: dumsystem
+  description: An example system that groups related components
+spec:
+  owner: zozo
+  domain: dumdomain
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: dumdomain
+  description: An example domain grouping multiple systems
+spec:
+  owner: zozo
+---
+# https://backstage.io/docs/features/software-catalog/descriptor-format#kind-group
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: Github
+spec:
+  type: team
+  children: []
+
+---
+
+# https://backstage.io/docs/features/software-catalog/descriptor-format#kind-group
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: zozo
+spec:
+  type: team
+  children: []
+
+---
+
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: hiren
+spec:
+  memberOf: [yoyo]
+  lifecycle: production
+  profile:
+    email: hiren.timbadiya@armorcode.io
+    displayName: hiren
+    name: hiren
+
+---
+
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: chirag
+spec:
+  memberOf: [yoyo]
+  lifecycle: production
+  profile:
+    email: chirag.malik@armorcode.io
+    displayName: chirag
+    name: chirag
+
+---
+
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: pragati
+spec:
+  memberOf: [yoyo]
+  lifecycle: production
+  profile:
+    email: pragati.dubey@armorcode.io
+    displayName: pragati
+    name: pragati
