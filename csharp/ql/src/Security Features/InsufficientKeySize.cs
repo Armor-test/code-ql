@@ -57,7 +57,7 @@ namespace InsufficientKeySize
         {
             try
             {
-                DSACryptoServiceProvider dsa = new DSACryptoServiceProvider(); // BAD
+                DSACryptoServiceProvider dsa = new DSACryptoServiceProvider(2048); // GOOD
                 dsa = new DSACryptoServiceProvider(2048); // GOOD
                 dsa.ImportParameters(key);
                 return dsa.SignData(plaintext);
