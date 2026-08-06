@@ -78,7 +78,7 @@ namespace InsufficientKeySize
 
                 // Create a new instance of DSACryptoServiceProvider to generate
                 // a new key pair.
-                using (DSACryptoServiceProvider DSA = new DSACryptoServiceProvider())
+                using (DSACryptoServiceProvider DSA = new DSACryptoServiceProvider(2048)) // GOOD
                 {
                     privateKeyInfo = DSA.ExportParameters(true);
                     publicKeyInfo = DSA.ExportParameters(false);
