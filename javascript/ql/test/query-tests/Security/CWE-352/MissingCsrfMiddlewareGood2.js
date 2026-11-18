@@ -65,7 +65,7 @@ var passport = require('passport');
     };
 
     app.use(express.cookieParser());
-    app.use(express.session({ secret: 'thomasdavislovessalmon' }));
+    app.use(express.session({ secret: process.env.SESSION_SECRET }));
     app.use(express.bodyParser());
     app.use(csrf.check);
 
