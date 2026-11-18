@@ -1,5 +1,6 @@
 
 from . import test_tokenizer
+import os
 import sys
 from blib2to3.pgen2.token import tok_name
 
@@ -16,6 +17,7 @@ def main():
         inputfile = sys.argv[2]
     else:
         inputfile = sys.argv[1]
+    inputfile = os.path.realpath(inputfile)
     with open(inputfile, "r") as input:
         t = test_tokenizer.Tokenizer(input.read()+"\n")
     for tkn in t.tokens(verbose):
