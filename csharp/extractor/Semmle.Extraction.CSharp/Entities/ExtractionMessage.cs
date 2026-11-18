@@ -15,6 +15,8 @@ namespace Semmle.Extraction.CSharp.Entities
         private readonly Message msg;
         private readonly bool bypassLimit;
 
+        private static int IncrementMessageCount() => Interlocked.Increment(ref messageCount);
+
         public ExtractionMessage(Context cx, Message msg) : this(cx, msg, bypassLimit: false)
         {
         }
@@ -34,7 +36,7 @@ namespace Semmle.Extraction.CSharp.Entities
 
             if (!bypassLimit)
             {
-                var val = Interlocked.Increment(ref messageCount);
+                var val = IncrementMessageCount();
                 if (val > limit)
                 {
                     if (val == limit + 1)
