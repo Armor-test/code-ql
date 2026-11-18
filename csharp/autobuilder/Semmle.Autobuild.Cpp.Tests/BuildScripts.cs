@@ -86,11 +86,8 @@ namespace Semmle.Autobuild.Cpp.Tests
             return ret;
         }
 
-        public IList<string> DirectoryDeleteIn = new List<string>();
-
         void IBuildActions.DirectoryDelete(string dir, bool recursive)
         {
-            DirectoryDeleteIn.Add(dir);
         }
 
         public IDictionary<string, bool> DirectoryExists = new Dictionary<string, bool>();
