@@ -22,7 +22,7 @@ namespace Semmle.Autobuild.Cpp.Tests
         /// <summary>
         /// List of strings passed to FileDelete.
         /// </summary>
-        public IList<string> FileDeleteIn = new List<string>();
+        public readonly IList<string> FileDeleteIn = new List<string>();
 
         void IBuildActions.FileDelete(string file)
         {
