@@ -29,12 +29,10 @@ namespace Semmle.Autobuild.Cpp.Tests
             FileDeleteIn.Add(file);
         }
 
-        public IList<string> FileExistsIn = new List<string>();
         public IDictionary<string, bool> FileExists = new Dictionary<string, bool>();
 
         bool IBuildActions.FileExists(string file)
         {
-            FileExistsIn.Add(file);
             if (FileExists.TryGetValue(file, out var ret))
                 return ret;
             if (FileExists.TryGetValue(System.IO.Path.GetFileName(file), out ret))
