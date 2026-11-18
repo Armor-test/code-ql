@@ -88,7 +88,8 @@ api.post('/robots/:robotId/commands', function (req, res)
             {
                 if (err)
                 {
-                    res.status(500).send({ error: err });
+                    console.error('Error connecting to robot: ' + err);
+                    res.status(500).send({ error: 'Internal server error' });
                 }
                 else
                 {
