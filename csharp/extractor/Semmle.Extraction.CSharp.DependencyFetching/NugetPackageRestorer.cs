@@ -768,7 +768,7 @@ namespace Semmle.Extraction.CSharp.DependencyFetching
                     {
                         return new FileInfo(config).Directory?.FullName;
                     }
-                    catch (Exception exc)
+                    catch (Exception exc) when (exc is ArgumentException or PathTooLongException or NotSupportedException or System.Security.SecurityException or UnauthorizedAccessException)
                     {
                         logger.LogWarning($"Failed to get directory of '{config}': {exc}");
                     }
