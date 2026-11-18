@@ -21,7 +21,7 @@ namespace SemmleTests.Semmle.Util
         private static string MakeLongPath()
         {
             var uniquePostfix = Guid.NewGuid().ToString("N");
-            return Path.Combine(longPathDir, $"iiiiiiiiiiiiiiii{uniquePostfix}.txt");
+            return Path.Join(longPathDir, $"iiiiiiiiiiiiiiii{uniquePostfix}.txt");
         }
 
         private static string MakeShortPath()
