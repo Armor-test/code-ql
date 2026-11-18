@@ -82,7 +82,7 @@ namespace Semmle.Util
             {
                 exes = new[] { prog };
             }
-            var candidates = paths?.Where(path => exes.Any(exe0 => File.Exists(Path.Combine(path, exe0))));
+            var candidates = paths?.Where(path => exes.Any(exe0 => File.Exists(Path.Join(path, exe0))));
             return candidates?.FirstOrDefault();
         }
 
