@@ -94,7 +94,7 @@ namespace Semmle.Autobuild.Cpp.Tests
         }
 
         public IDictionary<string, bool> DirectoryExists = new Dictionary<string, bool>();
-        public IList<string> DirectoryExistsIn = new List<string>();
+        public readonly IList<string> DirectoryExistsIn = new List<string>();
 
         bool IBuildActions.DirectoryExists(string dir)
         {
