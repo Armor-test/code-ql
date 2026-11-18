@@ -815,7 +815,7 @@ namespace Semmle.Extraction.CSharp.DependencyFetching
         /// </summary>
         private static string ComputeTempDirectoryPath(string srcDir, string subfolderName)
         {
-            return Path.Combine(FileUtils.GetTemporaryWorkingDirectory(out _), FileUtils.ComputeHash(srcDir), subfolderName);
+            return Path.Join(FileUtils.GetTemporaryWorkingDirectory(out _), FileUtils.ComputeHash(srcDir), subfolderName);
         }
     }
 }
