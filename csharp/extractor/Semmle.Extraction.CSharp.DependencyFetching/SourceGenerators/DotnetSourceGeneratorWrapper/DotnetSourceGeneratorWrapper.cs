@@ -40,10 +40,10 @@ namespace Semmle.Extraction.CSharp.DependencyFetching
                 var relativePathToCsProj = Path.GetRelativePath(sourceDir, csprojFile);
                 var name = FileUtils.ComputeHash($"{relativePathToCsProj}\n{this.GetType().Name}");
                 using var tempDir = new TemporaryDirectory(Path.Join(FileUtils.GetTemporaryWorkingDirectory(out _), "source-generator"), "source generator temporary", logger);
-                var analyzerConfigPath = Path.Combine(tempDir.DirInfo.FullName, $"{name}.txt");
-                var dllPath = Path.Combine(tempDir.DirInfo.FullName, $"{name}.dll");
-                var cscArgsPath = Path.Combine(tempDir.DirInfo.FullName, $"{name}.rsp");
-                var outputFolder = Path.Combine(targetDir, name);
+                var analyzerConfigPath = Path.Join(tempDir.DirInfo.FullName, $"{name}.txt");
+                var dllPath = Path.Join(tempDir.DirInfo.FullName, $"{name}.dll");
+                var cscArgsPath = Path.Join(tempDir.DirInfo.FullName, $"{name}.rsp");
+                var outputFolder = Path.Join(targetDir, name);
                 Directory.CreateDirectory(outputFolder);
                 logger.LogInfo("Producing analyzer config content.");
                 GenerateAnalyzerConfig(additionalFiles, csprojFile, analyzerConfigPath);
