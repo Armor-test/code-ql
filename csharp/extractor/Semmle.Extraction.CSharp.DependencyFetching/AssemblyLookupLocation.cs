@@ -47,7 +47,7 @@ namespace Semmle.Extraction.CSharp.DependencyFetching
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception e) when (e is IOException or UnauthorizedAccessException or System.Security.SecurityException or ArgumentException)
             {
                 logger.LogError($"AssemblyLookupLocation: Error while searching for DLLs in '{path}': {e.Message}");
             }
