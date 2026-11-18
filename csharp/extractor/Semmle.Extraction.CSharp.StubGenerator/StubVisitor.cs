@@ -36,26 +36,39 @@ internal sealed class StubVisitor : SymbolVisitor
             type is IArrayTypeSymbol array && ContainsTupleType(array.ElementType) ||
             type is IPointerTypeSymbol pointer && ContainsTupleType(pointer.PointedAtType);
 
-        static bool EqualsModuloTupleElementNames(ITypeSymbol t1, ITypeSymbol t2) =>
-           SymbolEqualityComparer.Default.Equals(t1, t2) ||
-            (
-                t1 is INamedTypeSymbol named1 &&
-                t2 is INamedTypeSymbol named2 &&
-                (!SymbolEqualityComparer.Default.Equals(named1, named1.ConstructedFrom) || !SymbolEqualityComparer.Default.Equals(named2, named2.ConstructedFrom)) &&
+        static bool IsEqualConstructedNamedType(ITypeSymbol t1, ITypeSymbol t2)
+        {
+            if (t1 is not INamedTypeSymbol named1 || t2 is not INamedTypeSymbol named2)
+            {
+                return false;
+            }
+
+            var eitherIsConstructed =
+                !SymbolEqualityComparer.Default.Equals(named1, named1.ConstructedFrom) ||
+                !SymbolEqualityComparer.Default.Equals(named2, named2.ConstructedFrom);
+
+            return
+                eitherIsConstructed &&
                 EqualsModuloTupleElementNames(named1.ConstructedFrom, named2.ConstructedFrom) &&
                 named1.TypeArguments.Length == named2.TypeArguments.Length &&
-                named1.TypeArguments.Zip(named2.TypeArguments).All(p => EqualsModuloTupleElementNames(p.First, p.Second))
-            ) ||
-            (
-                t1 is IArrayTypeSymbol array1 &&
-                t2 is IArrayTypeSymbol array2 &&
-                EqualsModuloTupleElementNames(array1.ElementType, array2.ElementType)
-            ) ||
-            (
-                t1 is IPointerTypeSymbol pointer1 &&
-                t2 is IPointerTypeSymbol pointer2 &&
-                EqualsModuloTupleElementNames(pointer1.PointedAtType, pointer2.PointedAtType)
-            );
+                named1.TypeArguments.Zip(named2.TypeArguments).All(p => EqualsModuloTupleElementNames(p.First, p.Second));
+        }
+
+        static bool IsEqualArrayType(ITypeSymbol t1, ITypeSymbol t2) =>
+            t1 is IArrayTypeSymbol array1 &&
+            t2 is IArrayTypeSymbol array2 &&
+            EqualsModuloTupleElementNames(array1.ElementType, array2.ElementType);
+
+        static bool IsEqualPointerType(ITypeSymbol t1, ITypeSymbol t2) =>
+            t1 is IPointerTypeSymbol pointer1 &&
+            t2 is IPointerTypeSymbol pointer2 &&
+            EqualsModuloTupleElementNames(pointer1.PointedAtType, pointer2.PointedAtType);
+
+        static bool EqualsModuloTupleElementNames(ITypeSymbol t1, ITypeSymbol t2) =>
+            SymbolEqualityComparer.Default.Equals(t1, t2) ||
+            IsEqualConstructedNamedType(t1, t2) ||
+            IsEqualArrayType(t1, t2) ||
+            IsEqualPointerType(t1, t2);
 
         if (explicitInterfaceSymbol is not null)
         {
