@@ -88,7 +88,7 @@ namespace SemmleTests.Semmle.Util
         [Fact]
         public void CanonicalPathMissingAbsolutePath()
         {
-            Assert.Equal(Path.Combine(root, "no", "such", "file"), cache.GetCanonicalPath(Path.Combine(root, "no", "such", "file")));
+            Assert.Equal(Path.Join(root, "no", "such", "file"), cache.GetCanonicalPath(Path.Join(root, "no", "such", "file")));
 
             if (Win32.IsWindows())
                 Assert.Equal(@"C:\Windows\no\such\file", cache.GetCanonicalPath(@"C:\windOws\no\such\file"));
