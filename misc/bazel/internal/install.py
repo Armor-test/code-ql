@@ -102,7 +102,11 @@ while attempts < 3 and not success:
                 prefix, _, zip = line.partition(":")
                 assert zip, f"missing prefix for {prefix}, you should use prefix:zip format"
                 zip = zip.strip()
-                dest = destdir / prefix
+                prefix_path = pathlib.PurePosixPath(prefix)
+                assert not prefix_path.is_absolute() and ".." not in prefix_path.parts, (
+                    f"invalid prefix {prefix!r}: must be a relative path without '..' components"
+                )
+                dest = destdir / prefix_path
                 dest.mkdir(parents=True, exist_ok=True)
                 command = [ripunzip, "unzip-file", zip, "-d", dest]
                 print(f"Running ", *command)
