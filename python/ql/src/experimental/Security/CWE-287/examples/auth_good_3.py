@@ -1,3 +1,5 @@
+import os
+
 from ldap3 import Server, Connection, ALL
 from flask import request, Flask
 from ldap3.utils.dn import escape_rdn
@@ -10,5 +12,5 @@ def passwordFromEnv():
 
     srv = Server('servername', get_info=ALL)
     conn = Connection(srv, user='user_dn',
-                      password="SecurePa$$!")
+                      password=os.environ['LDAP_PASSWORD'])
     status, result, response, _ = conn.search(dn, search_filter)
