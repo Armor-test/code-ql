@@ -26,7 +26,7 @@ namespace Semmle.Extraction.CSharp.Entities.Statements
             get
             {
                 var m = Context.GetModel(Stmt);
-                return m.GetDeclaredSymbol(Stmt) as IMethodSymbol;
+                return m.GetDeclaredSymbol(Stmt);
             }
         }
 
