@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -573,7 +574,7 @@ namespace Semmle.Extraction.CSharp.DependencyFetching
                 content = pattern.Replace(content, replacement, 1);
                 File.WriteAllText(csproj.FullName, content);
             }
-            catch (Exception exc)
+            catch (Exception exc) when (exc is IOException or UnauthorizedAccessException or SecurityException or RegexMatchTimeoutException)
             {
                 logger.LogError($"Failed to change the {patternName} in {projectDir.FullName}: {exc}");
             }
