@@ -42,7 +42,6 @@ namespace Semmle.Autobuild.Cpp.Tests
             throw new ArgumentException("Missing FileExists " + file);
         }
 
-        public IList<string> RunProcessIn = new List<string>();
         public IDictionary<string, int> RunProcess = new Dictionary<string, int>();
         public IDictionary<string, string> RunProcessOut = new Dictionary<string, string>();
         public IDictionary<string, string> RunProcessWorkingDirectory = new Dictionary<string, string>();
@@ -52,7 +51,6 @@ namespace Semmle.Autobuild.Cpp.Tests
         int IBuildActions.RunProcess(string cmd, string args, string? workingDirectory, IDictionary<string, string>? env, out IList<string> stdOut)
         {
             var pattern = cmd + " " + args;
-            RunProcessIn.Add(pattern);
             if (RunProcessOut.TryGetValue(pattern, out var str))
                 stdOut = str.Split("\n");
             else
@@ -68,7 +66,6 @@ namespace Semmle.Autobuild.Cpp.Tests
         int IBuildActions.RunProcess(string cmd, string args, string? workingDirectory, IDictionary<string, string>? env)
         {
             var pattern = cmd + " " + args;
-            RunProcessIn.Add(pattern);
             RunProcessWorkingDirectory.TryGetValue(pattern, out var wd);
             if (wd != workingDirectory)
                 throw new ArgumentException("Missing RunProcessWorkingDirectory " + pattern);
