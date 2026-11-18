@@ -20,7 +20,7 @@ namespace Semmle.Extraction.CSharp.DependencyFetching
             }
         }
 
-        public string FullPath => Path.Combine(dir, FullVersion);
+        public string FullPath => Path.Join(dir, FullVersion);
 
         /**
          * The full path to the reference assemblies for this runtime.
