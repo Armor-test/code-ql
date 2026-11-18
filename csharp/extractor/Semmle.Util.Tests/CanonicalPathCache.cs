@@ -125,7 +125,7 @@ namespace SemmleTests.Semmle.Util
         public void CanonicalPathDots()
         {
             var abcPath = Path.GetFullPath("abc");
-            Assert.Equal(abcPath, cache.GetCanonicalPath(Path.Combine("foo", ".", "..", "abc")));
+            Assert.Equal(abcPath, cache.GetCanonicalPath(Path.Join("foo", ".", "..", "abc")));
         }
 
         [Fact]
