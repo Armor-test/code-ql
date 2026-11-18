@@ -43,7 +43,7 @@ namespace Semmle.Extraction.CSharp.DependencyFetching
                 var analyzerConfigPath = Path.Combine(tempDir.DirInfo.FullName, $"{name}.txt");
                 var dllPath = Path.Combine(tempDir.DirInfo.FullName, $"{name}.dll");
                 var cscArgsPath = Path.Combine(tempDir.DirInfo.FullName, $"{name}.rsp");
-                var outputFolder = Path.Combine(targetDir, name);
+                var outputFolder = Path.Join(targetDir, name);
                 Directory.CreateDirectory(outputFolder);
                 logger.LogInfo("Producing analyzer config content.");
                 GenerateAnalyzerConfig(additionalFiles, csprojFile, analyzerConfigPath);
