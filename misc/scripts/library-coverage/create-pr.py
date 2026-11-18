@@ -79,6 +79,14 @@ else:
     print("Working directory is not specified")
     exit(1)
 
+# Resolve to an absolute, symlink-free path and ensure it is an existing
+# directory before changing into it, to guard against path traversal via
+# unsanitized command line input.
+working_dir = os.path.realpath(working_dir)
+if not os.path.isdir(working_dir):
+    print(f"Working directory {working_dir} does not exist", file=sys.stderr)
+    exit(1)
+
 found_diff = False
 overwrite_files()
 
