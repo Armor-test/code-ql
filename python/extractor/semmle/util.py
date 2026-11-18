@@ -571,4 +571,4 @@ class BuiltinModuleExtractable(Extractable):
         return hash(self.name) ^ 82753421
 
 def base64digest(code):
-    return base64.b64encode(hashlib.sha1(code.encode("utf8")).digest(), b"_-").decode("ascii")
+    return base64.b64encode(hashlib.sha256(code.encode("utf8")).digest(), b"_-").decode("ascii")
