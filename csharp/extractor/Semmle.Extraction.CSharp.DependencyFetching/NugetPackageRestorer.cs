@@ -376,7 +376,7 @@ namespace Semmle.Extraction.CSharp.DependencyFetching
             var sb = new StringBuilder();
             fallbackNugetFeeds.ForEach((feed, index) => sb.AppendLine($"<add key=\"feed{index}\" value=\"{feed}\" />"));
 
-            var nugetConfigPath = Path.Combine(folderPath, "nuget.config");
+            var nugetConfigPath = Path.Join(folderPath, "nuget.config");
             logger.LogInfo($"Creating fallback nuget.config file {nugetConfigPath}.");
             File.WriteAllText(nugetConfigPath,
                 $"""
