@@ -38,6 +38,16 @@ def instantiate_template(template, instantiation, root, templates):
     for component in output_components:
         output_path = os.path.join(output_path, component)
     output_path = output_path + ".qll"
+
+    # Ensure the resolved output path stays within the template root to guard
+    # against path traversal via a malicious/unexpected instantiation name.
+    normalized_root = os.path.realpath(root)
+    normalized_output_path = os.path.realpath(output_path)
+    if os.path.commonpath([normalized_root, normalized_output_path]) != normalized_root:
+        raise ValueError(
+            "Refusing to write outside of template root: %s" % output_path
+        )
+
     with open(output_path, "w") as output:
         output.write(
 """
