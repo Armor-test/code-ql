@@ -559,7 +559,7 @@ namespace Semmle.Extraction.CSharp
         /// Gets the path to the `csharp.log` file written to by the C# extractor.
         /// </summary>
         public static string GetCSharpLogPath() =>
-            Path.Combine(GetCSharpLogDirectory(), "csharp.log");
+            Path.Join(GetCSharpLogDirectory(), "csharp.log");
 
         /// <summary>
         /// Gets the path to a `csharp.{hash}.txt` file written to by the C# extractor.
