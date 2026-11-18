@@ -14,7 +14,7 @@ namespace SemmleTests.Semmle.Util
     public sealed class LongPaths
     {
         private static readonly string tmpDir = Environment.GetEnvironmentVariable("TEST_TMPDIR") ?? Path.GetTempPath();
-        private static readonly string longPathDir = Path.Combine(tmpDir, "aaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        private static readonly string longPathDir = Path.Join(tmpDir, "aaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
             "ccccccccccccccccccccccccccccccc", "ddddddddddddddddddddddddddddddddddddd", "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", "fffffffffffffffffffffffffffffffff",
             "ggggggggggggggggggggggggggggggggggg", "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
 
