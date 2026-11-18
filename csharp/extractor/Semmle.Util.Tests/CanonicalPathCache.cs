@@ -97,7 +97,7 @@ namespace SemmleTests.Semmle.Util
         [Fact]
         public void CanonicalPathMissingRelativePath()
         {
-            Assert.Equal(Path.Combine(Directory.GetCurrentDirectory(), "NO", "SUCH"), cache.GetCanonicalPath(Path.Combine("NO", "SUCH")));
+            Assert.Equal(Path.Join(Directory.GetCurrentDirectory(), "NO", "SUCH"), cache.GetCanonicalPath(Path.Join("NO", "SUCH")));
         }
 
         [Fact]
