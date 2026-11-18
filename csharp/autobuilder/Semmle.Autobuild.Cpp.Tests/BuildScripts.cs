@@ -94,11 +94,9 @@ namespace Semmle.Autobuild.Cpp.Tests
         }
 
         public IDictionary<string, bool> DirectoryExists = new Dictionary<string, bool>();
-        public IList<string> DirectoryExistsIn = new List<string>();
 
         bool IBuildActions.DirectoryExists(string dir)
         {
-            DirectoryExistsIn.Add(dir);
             if (DirectoryExists.TryGetValue(dir, out var ret))
                 return ret;
             throw new ArgumentException("Missing DirectoryExists " + dir);
