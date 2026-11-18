@@ -40,7 +40,7 @@ namespace Semmle.Extraction.CSharp
                 // Microsoft.Build is not cross platform.
                 (csFiles, references, projectReferences) = ReadMsBuildProject(filename);
             }
-            catch  // lgtm[cs/catch-of-all-exceptions]
+            catch (Exception ex) when (!(ex is OutOfMemoryException || ex is StackOverflowException))
             {
                 // There was some reason why the project couldn't be loaded.
                 // Fall back to reading the Xml document directly.
