@@ -105,7 +105,7 @@ namespace Semmle.Extraction.CSharp.DependencyFetching
                     logger.LogWarning($"File {f.FullName} could not be processed.");
                     return false;
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or System.Security.SecurityException)
                 {
                     logger.LogWarning($"File {f.FullName} could not be processed: {ex.Message}");
                     return false;
