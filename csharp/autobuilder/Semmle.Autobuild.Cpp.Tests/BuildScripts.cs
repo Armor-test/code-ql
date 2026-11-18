@@ -244,7 +244,7 @@ namespace Semmle.Autobuild.Cpp.Tests
         }
 
         // Records the arguments passed to EndCallback
-        IList<string> EndCallbackIn = new List<string>();
+        readonly IList<string> EndCallbackIn = new List<string>();
         IList<int> EndCallbackReturn = new List<int>();
 
         void EndCallback(int ret, string s, bool silent)
