@@ -64,8 +64,10 @@ namespace Semmle.Extraction.CSharp.Standalone
                         FileUtils.TryDelete(output.FullName);
                     }
                 }
-                catch
-                { }
+                catch (Exception ex)
+                {
+                    Console.Error.WriteLine($"Failed to clean up temporary file '{output.FullName}': {ex}");
+                }
             }
         }
 
