@@ -120,7 +120,7 @@ namespace Semmle.Autobuild.Cpp.Tests
             return GetCurrentDirectory;
         }
 
-        public IDictionary<string, string> EnumerateFiles = new Dictionary<string, string>();
+        public readonly IDictionary<string, string> EnumerateFiles = new Dictionary<string, string>();
 
         IEnumerable<string> IBuildActions.EnumerateFiles(string dir)
         {
