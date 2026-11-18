@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Security;
 using Semmle.Util.Logging;
 
 namespace Semmle.Util
@@ -29,7 +30,7 @@ namespace Semmle.Util
             {
                 DirInfo.Delete(true);
             }
-            catch (Exception exc)
+            catch (Exception exc) when (exc is IOException or UnauthorizedAccessException or SecurityException)
             {
                 logger.LogInfo($"Couldn't delete {userReportedDirectoryPurpose} directory {exc.Message}");
             }
