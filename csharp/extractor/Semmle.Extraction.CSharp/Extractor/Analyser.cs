@@ -140,35 +140,32 @@ namespace Semmle.Extraction.CSharp
                 var currentTaskId = IncrementTaskCount();
                 ReportProgressTaskStarted(currentTaskId, assemblyPath);
 
-                if (!skipExtraction)
+                /* Note on parallel builds:
+                 *
+                 * The trap writer and source archiver both perform atomic moves
+                 * of the file to the final destination.
+                 *
+                 * If the same source file or trap file are generated concurrently
+                 * (by different parallel invocations of the extractor), then
+                 * last one wins.
+                 *
+                 * Specifically, if two assemblies are analysed concurrently in a build,
+                 * then there is a small amount of duplicated work but the output should
+                 * still be correct.
+                 */
+
+                if (!skipExtraction && compilation.GetAssemblyOrModuleSymbol(r) is IAssemblySymbol assembly)
                 {
-                    /* Note on parallel builds:
-                     *
-                     * The trap writer and source archiver both perform atomic moves
-                     * of the file to the final destination.
-                     *
-                     * If the same source file or trap file are generated concurrently
-                     * (by different parallel invocations of the extractor), then
-                     * last one wins.
-                     *
-                     * Specifically, if two assemblies are analysed concurrently in a build,
-                     * then there is a small amount of duplicated work but the output should
-                     * still be correct.
-                     */
+                    var cx = new Context(ExtractionContext, compilation, trapWriter, new AssemblyScope(assembly, assemblyPath), addAssemblyTrapPrefix);
 
-                    if (compilation.GetAssemblyOrModuleSymbol(r) is IAssemblySymbol assembly)
+                    foreach (var module in assembly.Modules)
                     {
-                        var cx = new Context(ExtractionContext, compilation, trapWriter, new AssemblyScope(assembly, assemblyPath), addAssemblyTrapPrefix);
-
-                        foreach (var module in assembly.Modules)
-                        {
-                            AnalyseNamespace(cx, module.GlobalNamespace);
-                        }
-
-                        Entities.Attribute.ExtractAttributes(cx, assembly, Entities.Assembly.Create(cx, assembly.GetSymbolLocation()));
-
-                        cx.PopulateAll();
+                        AnalyseNamespace(cx, module.GlobalNamespace);
                     }
+
+                    Entities.Attribute.ExtractAttributes(cx, assembly, Entities.Assembly.Create(cx, assembly.GetSymbolLocation()));
+
+                    cx.PopulateAll();
                 }
 
                 ReportProgressTaskDone(currentTaskId, assemblyPath, trapWriter.TrapFile, stopwatch.Elapsed, skipExtraction ? AnalysisAction.UpToDate : AnalysisAction.Extracted);
