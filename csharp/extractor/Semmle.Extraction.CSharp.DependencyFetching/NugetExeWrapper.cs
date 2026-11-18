@@ -73,7 +73,7 @@ namespace Semmle.Extraction.CSharp.DependencyFetching
                         }
                         AddDefaultPackageSource(nugetConfigPath);
                     }
-                    catch (Exception e)
+                    catch (Exception e) when (e is IOException || e is UnauthorizedAccessException || e is System.ComponentModel.Win32Exception)
                     {
                         logger.LogError($"Failed to add default package source to {nugetConfigPath}: {e}");
                     }
