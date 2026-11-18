@@ -210,7 +210,7 @@ namespace Semmle.Extraction.CSharp
                             TracingAnalyser.GetOutputName(compilation, args),
                             compilation,
                             generatedSyntaxTrees,
-                            Path.Combine(compilationIdentifierPath, diagnosticName),
+                            Path.Join(compilationIdentifierPath, diagnosticName),
                             options),
                         () => { });
 
