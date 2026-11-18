@@ -149,7 +149,7 @@ namespace Semmle.Extraction.CSharp.DependencyFetching
                 nugetPackageDllPaths.ExceptWith(excludedPaths);
                 assemblyLookupLocations.UnionWith(nugetPackageDllPaths.Select(p => new AssemblyLookupLocation(p)));
             }
-            catch (Exception exc)
+            catch (Exception exc) when (exc is IOException or UnauthorizedAccessException or InvalidOperationException or System.ComponentModel.Win32Exception)
             {
                 logger.LogError($"Failed to restore Nuget packages with nuget.exe: {exc.Message}");
             }
