@@ -104,7 +104,7 @@ namespace Semmle.Autobuild.Cpp.Tests
             throw new ArgumentException("Missing DirectoryExists " + dir);
         }
 
-        public IDictionary<string, string?> GetEnvironmentVariable = new Dictionary<string, string?>();
+        public readonly IDictionary<string, string?> GetEnvironmentVariable = new Dictionary<string, string?>();
 
         string? IBuildActions.GetEnvironmentVariable(string name)
         {
