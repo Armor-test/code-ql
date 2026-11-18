@@ -44,7 +44,7 @@ namespace Semmle.Autobuild.Cpp.Tests
 
         public IList<string> RunProcessIn = new List<string>();
         public IDictionary<string, int> RunProcess = new Dictionary<string, int>();
-        public IDictionary<string, string> RunProcessOut = new Dictionary<string, string>();
+        public readonly IDictionary<string, string> RunProcessOut = new Dictionary<string, string>();
         public IDictionary<string, string> RunProcessWorkingDirectory = new Dictionary<string, string>();
         public HashSet<string> CreateDirectories { get; } = new HashSet<string>();
         public HashSet<(string, string)> DownloadFiles { get; } = new HashSet<(string, string)>();
