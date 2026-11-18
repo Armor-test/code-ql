@@ -85,7 +85,7 @@ namespace Semmle.Extraction.CSharp.DependencyFetching
                 return groupedFiles
                     .SelectMany(group => sourceGenerator.RunSourceGenerator(group.Value, group.Key, references, targetDir, fileProvider.SourceDir.FullName));
             }
-            catch (Exception ex)
+            catch (Exception ex) when (ex is not OutOfMemoryException and not StackOverflowException)
             {
                 // It's okay, we tried our best to generate source files.
                 logger.LogInfo($"Failed to generate source files from {FileType} files: {ex.Message}");
