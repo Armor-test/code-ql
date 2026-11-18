@@ -203,7 +203,7 @@ namespace Semmle.Util
         {
             var tempPath = Path.GetTempPath();
             var name = Guid.NewGuid().ToString("N").ToUpper();
-            var tempFolder = Path.Combine(tempPath, "GitHub", name);
+            var tempFolder = Path.Join(tempPath, "GitHub", name);
             Directory.CreateDirectory(tempFolder);
             return tempFolder;
         });
