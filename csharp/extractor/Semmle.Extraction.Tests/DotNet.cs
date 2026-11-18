@@ -33,10 +33,10 @@ namespace Semmle.Extraction.Tests
             return Success;
         }
 
-        public bool RunCommand(string args, string? workingDirectory, out IList<string> output, bool silent)
+        public bool RunCommand(string args, string? workingDirectory, out IList<string> commandOutput, bool silent)
         {
             WorkingDirectory = workingDirectory ?? "";
-            return RunCommand(args, out output, silent);
+            return RunCommand(args, out commandOutput, silent);
         }
 
         public string GetLastArgs() => lastArgs;
