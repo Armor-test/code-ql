@@ -370,7 +370,7 @@ namespace Semmle.Util
                 {
                     actions.DirectoryDelete(dir, true);
                 }
-                catch  // lgtm[cs/catch-of-all-exceptions]
+                catch (Exception e) when (e is IOException or UnauthorizedAccessException or System.Security.SecurityException or ArgumentException)
                 {
                     return failureCode;
                 }
