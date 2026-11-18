@@ -19,14 +19,8 @@ namespace Semmle.Autobuild.Cpp.Tests
     /// </summary>
     class TestActions : IBuildActions
     {
-        /// <summary>
-        /// List of strings passed to FileDelete.
-        /// </summary>
-        public IList<string> FileDeleteIn = new List<string>();
-
         void IBuildActions.FileDelete(string file)
         {
-            FileDeleteIn.Add(file);
         }
 
         public IList<string> FileExistsIn = new List<string>();
