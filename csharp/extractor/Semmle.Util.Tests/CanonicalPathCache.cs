@@ -82,7 +82,7 @@ namespace SemmleTests.Semmle.Util
         [Fact]
         public void CanonicalPathMissingFile()
         {
-            Assert.Equal(Path.Combine(Directory.GetCurrentDirectory(), "NOSUCHFILE"), cache.GetCanonicalPath("NOSUCHFILE"));
+            Assert.Equal(Path.Join(Directory.GetCurrentDirectory(), "NOSUCHFILE"), cache.GetCanonicalPath("NOSUCHFILE"));
         }
 
         [Fact]
