@@ -96,6 +96,9 @@ int main(int argc, char** argv) { // $ Source=argv
     snprintf(fileBuffer, sizeof(fileBuffer), "/home/user/files/%s", fileName);
     // GOOD: We know that the filename is safe and stays within the public folder. But we currently get an FP here.
     FILE *file = fopen(fileBuffer, "wb+"); // $ SPURIOUS: Alert=argv
+    if (file) {
+        fclose(file);
+    }
   }
 
   {
