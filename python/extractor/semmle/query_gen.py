@@ -220,9 +220,15 @@ def run(nodes_module, lang="python"):
     if len(sys.argv) != 2:
         print("Usage: %s output-directory" % sys.argv[0])
         sys.exit(1)
-    outdir = sys.argv[1]
+    outdir = os.path.realpath(sys.argv[1])
+    if not os.path.isdir(outdir):
+        print("Output directory does not exist: %s" % outdir)
+        sys.exit(1)
     nodes = nodes_module.all_nodes()
     outfile = os.path.join(outdir, 'AstGenerated.qll')
+    if os.path.realpath(outfile) != os.path.join(outdir, 'AstGenerated.qll'):
+        print("Invalid output path")
+        sys.exit(1)
     with open(outfile, 'w') as out:
         out.write(HEADER % '/'.join(__file__.split(os.path.sep)[-2:]))
         write_queries(nodes.values(), out, lang)
