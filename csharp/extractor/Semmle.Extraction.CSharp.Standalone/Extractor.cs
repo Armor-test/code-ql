@@ -64,8 +64,11 @@ namespace Semmle.Extraction.CSharp.Standalone
                         FileUtils.TryDelete(output.FullName);
                     }
                 }
-                catch
-                { }
+                catch (Exception)
+                {
+                    // Best-effort cleanup of the temporary output file/folder; failures here
+                    // are not fatal to extraction and are intentionally ignored.
+                }
             }
         }
 
