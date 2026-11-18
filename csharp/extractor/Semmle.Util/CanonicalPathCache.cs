@@ -140,7 +140,7 @@ namespace Semmle.Util
                     ? entries[0]
                     : Path.Combine(parentPath, name);
             }
-            catch  // lgtm[cs/catch-of-all-exceptions]
+            catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException || ex is System.Security.SecurityException)
             {
                 // IO error or security error querying directory.
                 return Path.Combine(parentPath, name);
