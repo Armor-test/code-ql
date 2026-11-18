@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.IO.Compression;
+using System.Security;
 using System.Text;
 using Semmle.Util;
 using Semmle.Util.Logging;
@@ -205,7 +206,7 @@ namespace Semmle.Extraction.CSharp
                     FileUtils.TryDelete(tmpFile);
                 }
             }
-            catch (Exception ex)  // lgtm[cs/catch-of-all-exceptions]
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or SecurityException or NotSupportedException)
             {
                 logger.LogError($"Failed to move the trap file from {tmpFile} to {TrapFile} because {ex}");
             }
