@@ -4,6 +4,7 @@ const client = redis.createClient();
 
 const Express = require('express');
 const app = Express();
+app.disable('x-powered-by');
 app.use(require('body-parser').json());
 
 app.post('/documents/find', (req, res) => {
