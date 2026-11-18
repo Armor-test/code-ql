@@ -121,16 +121,13 @@ internal sealed class StubVisitor : SymbolVisitor
         if (!skipAccessibility)
             StubAccessibility(symbol.DeclaredAccessibility);
 
-        if (symbol.IsAbstract)
+        if (symbol.IsAbstract &&
+            // exclude interface declarations
+            (symbol is not INamedTypeSymbol type || type.TypeKind != TypeKind.Interface) &&
+            // exclude non-static interface members
+            (symbol.ContainingType is not INamedTypeSymbol containingType || containingType.TypeKind != TypeKind.Interface || symbol.IsStatic))
         {
-            if (
-                // exclude interface declarations
-                (symbol is not INamedTypeSymbol type || type.TypeKind != TypeKind.Interface) &&
-                // exclude non-static interface members
-                (symbol.ContainingType is not INamedTypeSymbol containingType || containingType.TypeKind != TypeKind.Interface || symbol.IsStatic))
-            {
-                stubWriter.Write("abstract ");
-            }
+            stubWriter.Write("abstract ");
         }
 
         if (symbol.IsStatic && !(symbol is IFieldSymbol field && field.IsConst))
