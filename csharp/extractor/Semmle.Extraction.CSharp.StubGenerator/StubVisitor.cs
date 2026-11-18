@@ -112,7 +112,7 @@ internal sealed class StubVisitor : SymbolVisitor
 
     private void StubModifiers(ISymbol symbol, bool skipAccessibility = false)
     {
-        if (symbol.ContainingType is ITypeSymbol containing && containing.TypeKind == TypeKind.Interface)
+        if (symbol.ContainingType is { } containing && containing.TypeKind == TypeKind.Interface)
             skipAccessibility = true;
 
         if (symbol is IMethodSymbol method && method.MethodKind == MethodKind.Constructor && symbol.IsStatic)
