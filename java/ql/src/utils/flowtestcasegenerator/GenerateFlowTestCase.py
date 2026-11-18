@@ -49,16 +49,18 @@ if len(sys.argv) != 4:
     print("\nRun with --help for more details.", file=sys.stderr)
     sys.exit(1)
 
+outDir = os.path.abspath(os.path.normpath(sys.argv[3]))
+
 try:
-    os.makedirs(sys.argv[3])
+    os.makedirs(outDir)
 except OSError as e:
     if e.errno != errno.EEXIST:
-        print("Failed to create output directory %s: %s" % (sys.argv[3], e))
+        print("Failed to create output directory %s: %s" % (outDir, e))
         sys.exit(1)
 
-resultJava = os.path.join(sys.argv[3], "Test.java")
-resultQl = os.path.join(sys.argv[3], "test.ql")
-resultYml = os.path.join(sys.argv[3], "test.ext.yml")
+resultJava = os.path.join(outDir, "Test.java")
+resultQl = os.path.join(outDir, "test.ql")
+resultYml = os.path.join(outDir, "test.ext.yml")
 
 if not force and (os.path.exists(resultJava) or os.path.exists(resultQl) or os.path.exists(resultYml)):
     print("Won't overwrite existing files '%s', '%s' or '%s'." %
@@ -284,7 +286,7 @@ if len(supportModelRows) != 0:
         f.write(dataextensions)
 
 # Make an empty .expected file, since this is an inline-exectations test
-with open(os.path.join(sys.argv[3], "test.expected"), "w"):
+with open(os.path.join(outDir, "test.expected"), "w"):
     pass
 
 cmd = ['codeql', 'query', 'format', '-qq', '-i', resultQl]
