@@ -139,11 +139,8 @@ internal sealed class StubVisitor : SymbolVisitor
             stubWriter.Write("virtual ");
         if (symbol.IsOverride)
             stubWriter.Write("override ");
-        if (symbol.IsSealed)
-        {
-            if (!(symbol is INamedTypeSymbol type && (type.TypeKind == TypeKind.Enum || type.TypeKind == TypeKind.Delegate || type.TypeKind == TypeKind.Struct)))
-                stubWriter.Write("sealed ");
-        }
+        if (symbol.IsSealed && !(symbol is INamedTypeSymbol type && (type.TypeKind == TypeKind.Enum || type.TypeKind == TypeKind.Delegate || type.TypeKind == TypeKind.Struct)))
+            stubWriter.Write("sealed ");
         if (symbol.IsExtern)
             stubWriter.Write("extern ");
     }
