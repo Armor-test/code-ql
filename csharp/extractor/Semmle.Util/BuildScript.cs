@@ -286,7 +286,7 @@ namespace Semmle.Util
                     actions.DownloadFile(address, fileName, logger);
                     return 0;
                 }
-                catch (Exception e)
+                catch (Exception e) when (e is IOException or UnauthorizedAccessException or System.Net.Http.HttpRequestException or System.Threading.Tasks.TaskCanceledException or OperationCanceledException or System.Net.WebException)
                 {
                     exceptionCallback(e);
                     return 1;
